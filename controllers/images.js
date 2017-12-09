@@ -1,8 +1,8 @@
-var Image = require('../models/image');
+var Image = require('../models/images');
 
 module.exports = {
-    create,
-    createdImages
+    // create,
+    // createdImages
 }
 
 // fn create, fn createdImages

@@ -13,7 +13,7 @@ var userSchema = new Schema ({
     email: String,
     password: String,
     passwordDigest: String,
-    image: file
+    image: String
 });
 
 module.exports = mongoose.model('Images', imageSchema);
