@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Put API routes here, before the catch-all route
-app.use('/api', require('./routes/api'));
+// app.use('/api', require('./routes/api'));
 
 // Catch all routes
 app.get('/*', function(req,res) {
