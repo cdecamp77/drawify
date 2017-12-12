@@ -7,12 +7,15 @@ import Drawing from '../../components/Drawing/Drawing';
 const PhotoBooth = (props) => {
 
     return (
-        <div className="PhotoBooth">
-            <div className="container">
+        <div className="container">
+            <div className="PhotoBooth">
                 <WebCam handleStartClick={props.handleStartClick} />
                 <Drawing />
                 <ClearDrawingButton />
-                <Toolbar />
+                <Toolbar 
+                color={props.background}
+                onChangeComplete={props.handleChangeComplete}
+                />
             </div>
         </div>
     );

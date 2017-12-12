@@ -1,21 +1,17 @@
 import React from 'react';
+import { SliderPicker } from 'react-color';
+
 
 const Toolbar = (props) => {
 
     return (
         <div className="container">
             <div className="row">
-                        {/* <div id="clearButton">
-                            <a className="btn waves-effect waves-light s12" id="clearCanvas"><i className="large material-icons">clear</i>Clear</a>
-                        </div> */}
-                    <div className="row">
-                        <div id="colorButtons s12">
-                            <a className="btn waves-effect waves-light s3" id="choosePurple" >PURPLE</a>
-                            <a className="btn waves-effect waves-light s3" id="chooseGreen">GREEN</a>
-                            <a className="btn waves-effect waves-light s3" id="chooseYellow">YELLOW</a>
-                            <a className="btn waves-effect waves-light s3" id="chooseBrown">BROWN</a>
-                        </div>
-                    </div>
+                <SliderPicker 
+                color={props.background}
+                onChangeComplete={props.onChangeComplete}
+                />
+            </div>
                     <div className="row">
                         <div id="sizeButtons s12">
                             <a className="btn waves-effect waves-light s3" id="small">SMALL</a>
@@ -31,7 +27,6 @@ const Toolbar = (props) => {
                         </div>
                     </div>
             </div>
-        </div>
     );
 }
 

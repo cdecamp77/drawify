@@ -3,14 +3,13 @@ import {Switch, Route} from 'react-router-dom';
 import './App.css';
 import GalleryPage from '../GalleryPage/GalleryPage';
 import Landing from '../Landing/Landing';
-// import LoginPage from '../LoginPage/LoginPage';
-// import SignupPage from '../SignupPage/SignupPage';
 import PhotoBooth from '../PhotoBooth/PhotoBooth';
 
 class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
+            background: '#fff',
             constraints: {
                 audio: false,
                 video: {width: 500, height: 300}}
@@ -74,13 +73,9 @@ class App extends Component {
         photo.setAttribute('src', data);
     }
 
-    getInitialState() {
-        return {
-            curColor: "#ddd",
-            curTool: "marker",
-            curSize: "normal",
-        };
-    }
+    handleChangeComplete = (color) => {
+        this.setState({background: color.hex });
+    };
 
     render() {
         return (
@@ -90,19 +85,14 @@ class App extends Component {
                         <Landing />
                     } />
                     <Route exact path='/photobooth' render={() =>
-                        <PhotoBooth handleStartClick={this.handleStartClick} />
+                        <PhotoBooth 
+                        color={this.state.background}
+                        onChangeComplete={this.handleChangeComplete}
+                        handleStartClick={this.handleStartClick} />
                     } />
                     <Route exact path='/gallery' render={() =>
                         <GalleryPage />
                     } />
-                    {/* <Route exact path='/login'
-                    render={() =>
-                        <LoginPage />
-                    } />
-                    <Route exact path='/signup'
-                    render={() => 
-                        <SignupPage />
-                    } /> */}
                 </Switch>
             </div>
         )
