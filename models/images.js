@@ -8,12 +8,4 @@ var imageSchema = new Schema ({
     timestamps: true
 });
 
-var userSchema = new Schema ({
-    id: Number,
-    email: String,
-    password: String,
-    passwordDigest: String,
-    image: String
-});
-
 module.exports = mongoose.model('Images', imageSchema);

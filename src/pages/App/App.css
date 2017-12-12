@@ -1,0 +1,50 @@
+.booth-capture-button {
+    width: 500px;
+    display: block;
+    margin: 10px 0;
+    padding: 10px 20px;
+    background-color: cornflowerblue;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+
+#top-layer {
+    /* border: 1px solid black; */
+    background-image: url('http://placekitten.com/g/500/300');
+    background-size: cover;
+    box-shadow: 5px 5px 15px cornflowerblue;    
+}
+
+.btn {
+    padding: 5px;
+    margin: 2px;
+    box-shadow: 3px 3px 4px #FF5C69;
+}
+
+#video {
+    box-shadow: 7px 7px 15px cornflowerblue;
+    background-color: black;
+    display: flex;
+    align-items: stretch;
+}
+
+#choosePurple {
+    background-color: #cb3594;
+}
+
+#chooseGreen {
+    background-color: #659b41;
+}
+
+#chooseYellow {
+    background-color: #ffcf33;
+}
+
+#chooseBrown {
+    background-color: #986928;
+}
+
+#clearCanvas {
+    color: #000;
+}

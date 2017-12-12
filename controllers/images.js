@@ -1,8 +1,23 @@
 var Image = require('../models/images');
 
-module.exports = {
-    // create,
-    // createdImages
+function create(req, res) {
+    Image.create(req.body)
+    .then(image => {
+        res.json(image);
+    })
+    .catch(err => {
+        res.json({error: err});
+    });
 }
 
-// fn create, fn createdImages
+function createdImages(req, res) {
+    Image.find({})
+    .then(images => {
+        res.json(images);
+    });
+}
+
+module.exports = {
+    create,
+    createdImages
+}
