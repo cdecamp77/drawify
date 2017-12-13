@@ -10,9 +10,18 @@ const PhotoBooth = (props) => {
         <div className="container">
             <div className="PhotoBooth">
                 <WebCam handleStartClick={props.handleStartClick} />
-                <Drawing />
+                <Drawing
+                handleMouseUp={props.handleMouseUp}
+                handleMouseMove={props.handleMouseMove}
+                handleMouseDown={props.handleMouseDown}
+                redraw={props.redraw}
+                addClick={props.addClick}
+                />
                 <ClearDrawingButton />
                 <Toolbar 
+                handleMouseDown={props.handleMouseDown}
+                redraw={props.redraw}
+                addClick={props.addClick}
                 color={props.background}
                 onChangeComplete={props.handleChangeComplete}
                 />

@@ -5,18 +5,28 @@ import GalleryPage from '../GalleryPage/GalleryPage';
 import Landing from '../Landing/Landing';
 import PhotoBooth from '../PhotoBooth/PhotoBooth';
 
+let clickX = [];
+let clickY = [];
+let clickDrag = [];
+let clickColor = [];
+let clickSize = [];
+let paint;
+let radius;
+let curTool = 'marker';
+let curColor = '#fff';
+let curSize = 'normal';
+
 class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            background: '#fff',
             constraints: {
+            background: '#fff',
                 audio: false,
                 video: {width: 500, height: 300}}
         };
         this.handleStartClick = this.handleStartClick.bind(this);
         this.takePicture = this.takePicture.bind(this);
-        // this.clearPhoto = this.clearPhoto.bind(this);
     }
     
     componentDidMount() {
@@ -38,21 +48,7 @@ class App extends Component {
         .catch((err) => {
             console.log(err);
         });
-
-        // clearPhoto();
     }
-
-    // clearPhoto() {
-    //     const canvas = document.querySelector('canvas');
-    //     const photo = document.getElementById('photo');
-    //     const context = canvas.getContext('2d');
-    //     const { width, height } = this.state.contraints.video;
-    //     context.fillStyle = '#FFF';
-    //     context.fillRect(0,0,width, height);
-
-    //     const data = canvas.toDataURL('image/png');
-    //     photo.setAttribute('src', data);
-    // }
 
     handleStartClick (event) {
         event.preventDefault();
@@ -60,8 +56,8 @@ class App extends Component {
     }
 
     takePicture() {
-        const canvas = document.querySelector('canvas');
-        const context = canvas.getContext('2d');
+        let canvas = document.querySelector('canvas');
+        let context = canvas.getContext('2d');
         const video = document.querySelector('video');
         const photo = document.getElementById('photo');
 
@@ -77,6 +73,72 @@ class App extends Component {
         this.setState({background: color.hex });
     };
 
+    redraw = () => {
+        const canvas = document.querySelector('canvas');
+        const context = canvas.getContext('2d');
+
+        context.lineJoin = 'round';
+
+        for (var i=0; i < clickX.length; i++) {
+        if (clickSize[i] === 'small') {
+            radius = 2;
+        } else if (clickSize[i] === 'normal') {
+            radius = 5;
+        } else if (clickSize[i] === 'large') {
+            radius = 10;
+        } else if (clickSize[i] === 'huge') {
+            radius = 20;
+        }
+
+        context.beginPath();
+        if (clickDrag[i] && i) {
+            context.moveTo(clickX[i-1], clickY[i-1]);
+        } else {
+            context.moveTo(clickX[i]-1, clickY[i]);
+        }
+        context.lineTo(clickX[i], clickY[i]);
+        context.closePath();
+        context.strokeStyle = clickColor[i];
+        context.lineWidth = radius;
+        context.stroke();
+        }
+    }
+    
+    addClick = (x, y, dragging) => {
+        clickX.push(x);
+        clickY.push(y);
+        clickDrag.push(dragging);
+        if (curTool === 'eraser') {
+            clickColor.push('white');
+        } else {
+            clickColor.push(curColor);
+        }
+        clickSize.push(curSize);
+    }
+
+    handleMouseDown = (e) => {
+        let canvas = document.getElementById('photo')
+        let mouseX = e.pageX - canvas.offsetLeft;
+        let mouseY = e.pageY - canvas.offsetTop;
+        paint = true;
+        this.addClick(mouseX, mouseY, false);
+        this.redraw();
+    }
+
+    handleMouseMove = (e) => {
+        let canvas = document.getElementById('photo');
+        if (paint) {
+            this.addClick(e.pageX - canvas.offsetLeft,
+            e.pageY - canvas.offsetTop, true)
+            this.redraw();
+        }
+    }
+
+    handleMouseUp= (e) => {
+        paint = false;
+        this.redraw();
+    }
+
     render() {
         return (
             <div>
@@ -85,7 +147,12 @@ class App extends Component {
                         <Landing />
                     } />
                     <Route exact path='/photobooth' render={() =>
-                        <PhotoBooth 
+                        <PhotoBooth
+                        handleMouseUp={this.handleMouseUp}
+                        handleMouseMove={this.handleMouseMove}
+                        handleMouseDown={this.handleMouseDown}
+                        redraw={this.redraw}
+                        addClick={this.addClick}
                         color={this.state.background}
                         onChangeComplete={this.handleChangeComplete}
                         handleStartClick={this.handleStartClick} />
