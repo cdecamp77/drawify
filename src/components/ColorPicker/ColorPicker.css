@@ -1,3 +1,9 @@
+.colorPicker {
+    box-sizing: content-box;
+    background-color: lightgrey;
+    width: 50px;
+}
+
 .colors {
     height: 15px;
     border-radius: 50%

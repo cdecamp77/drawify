@@ -1,0 +1,10 @@
+canvas {
+     margin: 0 auto; 
+    background-image: url('http://placekitten.com/g/500/300');
+    background-size: cover;
+    box-shadow: 7px 7px 15px cornflowerblue;    
+}
+
+.photoBooth {
+    margin: 0 auto;
+}

@@ -1,28 +1,33 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import './NavBar.css';
 
 const NavBar = (props) => {
-  let nav = props.user ?
-    <div>
-      <Link to="/photobooth" className='NavBar-Link'>PhotoBooth</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      <Link to="/gallery" className='NavBar-link' >Gallery</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      <Link to="" className='NavBar-link' onClick={props.handleLogout} >LOG OUT</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-      <span className='NavBar-welcome'>WELCOME, {props.user.name}</span>
-    </div> :
-    <div>
-      <Link to="/login" className='NavBar-link'>LOG IN</Link>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <Link to="/signup" className='NavBar-link'>SIGN UP</Link>
-    </div>;
+  let verify = props.user ?
+    <nav>
+      <a href="/" className="brand-logo">Drawify</a>
+      <ul className="right">
+        <li><a href="/photobooth" className='NavBar-Link'>PhotoBooth</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li><a href="/gallery" className='NavBar-link' >Gallery</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li><a href="" className='NavBar-link' onClick={props.handleLogout} >Log Out</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <li><span className='NavBar-welcome brand-logo center'>Welcome, {props.user.name}</span></li>
+      </ul>
+    </nav> :
+    <nav>
+      <ul className="right">
+        <li><a href="/login" className='NavBar-link'>Log In</a></li>
+        {/* &nbsp;&nbsp;&nbsp;&nbsp; */}
+        <li><a href="/signup" className='NavBar-link'>Sign Up</a></li>
+      </ul>
+    </nav>;
 
   return (
-    <div className='NavBar'>
-      {nav}
-    </div>
+    <nav className='NavBar'>
+      {verify}
+    </nav>
   );
 };
 

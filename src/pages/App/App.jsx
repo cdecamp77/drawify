@@ -21,16 +21,14 @@ let clickSize = [];
 let paint;
 let radius;
 let curTool = 'marker';
-let curColor = 'pink';
+let curColor = 'black';
 let curSize = 'normal';
 
 class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            val_size: '',
-            curColor: 'pink',
-            background: '#fff',
+            val_size: 2,
             constraints: {
                 audio: false,
                 video: {width: 500, height: 300}}
@@ -55,16 +53,12 @@ class App extends Component {
 
        if (value === "1") {
            curSize = 'small';
-            console.log(value);
         } else if (value === "2") {
             curSize = 'normal';
-            console.log(value);
         } else if (value === "3") {
             curSize = 'large';
-            console.log(value);
         } else if (value === "4") {
             curSize = 'huge';
-            console.log(value);
         }
    }
 
@@ -88,7 +82,14 @@ class App extends Component {
         curColor = 'red';
     }
     
+    white = () => {
+        curColor = 'white';
+    }
+    
     componentDidMount() {
+        let user = userService.getUser();
+        this.setState({user});
+
         const constraints = this.state.constraints;
         const getUserMedia = (params) => (
             new Promise((successCallback, errorCallback) => {
@@ -96,14 +97,10 @@ class App extends Component {
             })
         );
 
-        let user = userService.getUser();
-        this.setState({user});
-
         getUserMedia(constraints)
             .then((stream) => {
                 const video = document.querySelector('video');
                 const vendorURL = window.URL || window.webkitURL;
-
                 video.src = vendorURL.createObjectURL(stream);
                 video.play();
             })
@@ -230,7 +227,6 @@ class App extends Component {
             <div>
                 <Router>
                 <Switch>
-                    
                     <Route exact path='/' render={() => 
                         <Landing 
                             user={this.state.user}
@@ -240,8 +236,11 @@ class App extends Component {
                     <Route exact path='/photobooth' render={() =>
                         userService.getUser() ?
                         <PhotoBooth
+                        user={this.state.user}
+                        handleLogout={this.handleLogout}
                         handleSizeSlider={this.handleSizeSlider}
                         blue={this.blue}
+                        white={this.white}
                         yellow={this.yellow}
                         black={this.black}
                         red={this.red}
@@ -272,7 +271,10 @@ class App extends Component {
                     }/>
                     <Route exact path='/gallery' render={() => (
                         userService.getUser() ? 
-                        <GalleryPage />
+                        <GalleryPage 
+                            user={this.state.user}
+                            handleLogout={this.handleLogout}
+                        />
                         :
                         <Redirect to='/login' />
                     )}/>
