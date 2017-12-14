@@ -13,20 +13,62 @@ let clickSize = [];
 let paint;
 let radius;
 let curTool = 'marker';
-let curColor = '#fff';
+let curColor = 'pink';
 let curSize = 'normal';
 
 class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            constraints: {
+            curColor: 'pink',
             background: '#fff',
+            constraints: {
                 audio: false,
                 video: {width: 500, height: 300}}
         };
         this.handleStartClick = this.handleStartClick.bind(this);
         this.takePicture = this.takePicture.bind(this);
+    }
+
+    getInitialState = () => {
+        return {
+            curColor: '#333',
+            curTool: 'marker',
+            curSize: 'normal'
+        }
+    }
+
+    // handleChangeComplete = (color) => {
+    //     var colorChoice = document.getElementById('colorPicker').addEventListener('click', );
+
+    //     clickColor.unshift(color);
+    //     this.setState({curColor: color.hex });
+    //     console.log(clickColor);
+    // };
+
+    blue = () => {
+        curColor = 'blue';
+        console.log(curColor);
+    }
+    
+    purple = () => {
+        curColor = 'purple';
+        console.log(curColor);
+    }
+    
+    black = () => {
+        curColor = 'black';
+        console.log(curColor);
+    }
+    
+    green = () => {
+        curColor = 'green';
+        console.log(curColor);
+    }
+    
+    red = () => {
+        curColor = 'red';
+        console.log(curColor);
     }
     
     componentDidMount() {
@@ -37,7 +79,7 @@ class App extends Component {
             })
         );
 
-        getUserMedia(constraints)
+    getUserMedia(constraints)
         .then((stream) => {
             const video = document.querySelector('video');
             const vendorURL = window.URL || window.webkitURL;
@@ -69,10 +111,6 @@ class App extends Component {
         photo.setAttribute('src', data);
     }
 
-    handleChangeComplete = (color) => {
-        this.setState({background: color.hex });
-    };
-
     redraw = () => {
         const canvas = document.querySelector('canvas');
         const context = canvas.getContext('2d');
@@ -97,11 +135,22 @@ class App extends Component {
             context.moveTo(clickX[i]-1, clickY[i]);
         }
         context.lineTo(clickX[i], clickY[i]);
-        context.closePath();
         context.strokeStyle = clickColor[i];
         context.lineWidth = radius;
         context.stroke();
+        context.closePath();
         }
+    }
+
+    eraser = () => {
+        curTool = 'eraser';
+        if (curTool === 'eraser') {
+            curColor = 'white';
+            curTool = 'marker';
+        } else {
+            clickColor.push(curColor);
+        }
+        console.log('eraser');
     }
     
     addClick = (x, y, dragging) => {
@@ -114,6 +163,10 @@ class App extends Component {
             clickColor.push(curColor);
         }
         clickSize.push(curSize);
+    }
+
+    clearCanvas = () => {
+        
     }
 
     handleMouseDown = (e) => {
@@ -134,7 +187,7 @@ class App extends Component {
         }
     }
 
-    handleMouseUp= (e) => {
+    handleMouseUp = (e) => {
         paint = false;
         this.redraw();
     }
@@ -148,13 +201,21 @@ class App extends Component {
                     } />
                     <Route exact path='/photobooth' render={() =>
                         <PhotoBooth
+                        blue={this.blue}
+                        purple={this.purple}
+                        black={this.black}
+                        red={this.red}
+                        green={this.green}
+                        selectColor={this.selectColor}
+                        eraser={this.eraser}
+                        clearCanvas={this.clearCanvas}
                         handleMouseUp={this.handleMouseUp}
                         handleMouseMove={this.handleMouseMove}
                         handleMouseDown={this.handleMouseDown}
                         redraw={this.redraw}
                         addClick={this.addClick}
-                        color={this.state.background}
-                        onChangeComplete={this.handleChangeComplete}
+                        color={this.state.curColor}
+                        handleChangeComplete={this.handleChangeComplete}
                         handleStartClick={this.handleStartClick} />
                     } />
                     <Route exact path='/gallery' render={() =>
