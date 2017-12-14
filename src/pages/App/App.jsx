@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import './App.css';
+import userService from '../../utils/userService';
 import GalleryPage from '../GalleryPage/GalleryPage';
 import Landing from '../Landing/Landing';
 import PhotoBooth from '../PhotoBooth/PhotoBooth';
+import SignupPage from '../SignupPage/SignupPage';
+import LoginPage from '../LoginPage/LoginPage';
 
 let clickX = [];
 let clickY = [];
@@ -46,7 +54,7 @@ class App extends Component {
        this.setState(obj);
 
        if (value === "1") {
-            curSize = 'small';
+           curSize = 'small';
             console.log(value);
         } else if (value === "2") {
             curSize = 'normal';
@@ -59,41 +67,6 @@ class App extends Component {
             console.log(value);
         }
    }
-   
-//    showActions(){
-//       return(
-//         <div className="action -bar"> 
-//             <input type="range" min="0" max="4" name='val_size' value={this.state.val_size} onChange={(e) => {this.handleChange(e)}}/>  
-//         </div>
-//       )
-//    }
-
-
-    // const slider = document.getElementById("myRange");
-    // const output = document.querySelector("span.value");
-    // output.innerHTML = slider.value;
-
-    // slider.oninput = function() {
-    //     output.innerHTML = this.value;
-    //     
-    // }
-    
-
-    small = () => {
-        curSize = 'small';
-    }    
-    
-    normal = () => {
-        curSize = 'normal';
-    }    
-    
-    large = () => {
-        curSize = 'large';
-    }    
-    
-    huge = () => {
-        curSize = 'huge';
-    }    
 
     blue = () => {
         curColor = 'blue';
@@ -123,17 +96,20 @@ class App extends Component {
             })
         );
 
-    getUserMedia(constraints)
-        .then((stream) => {
-            const video = document.querySelector('video');
-            const vendorURL = window.URL || window.webkitURL;
+        let user = userService.getUser();
+        this.setState({user});
 
-            video.src = vendorURL.createObjectURL(stream);
-            video.play();
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        getUserMedia(constraints)
+            .then((stream) => {
+                const video = document.querySelector('video');
+                const vendorURL = window.URL || window.webkitURL;
+
+                video.src = vendorURL.createObjectURL(stream);
+                video.play();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     handleStartClick (event) {
@@ -236,20 +212,35 @@ class App extends Component {
         this.redraw();
     }
 
+    handleLogout = () => {
+        userService.logout();
+        this.setState({user: null});
+    }
+
+    handleSignup = () => {
+        this.setState({user: userService.getUser()});
+    }
+
+    handleLogin = () => {
+        this.setState({user: userService.getUser()});
+    }
+
     render() {
         return (
             <div>
+                <Router>
                 <Switch>
+                    
                     <Route exact path='/' render={() => 
-                        <Landing />
+                        <Landing 
+                            user={this.state.user}
+                            handleLogout={this.handleLogout}
+                        />
                     } />
                     <Route exact path='/photobooth' render={() =>
+                        userService.getUser() ?
                         <PhotoBooth
                         handleSizeSlider={this.handleSizeSlider}
-                        small={this.small}
-                        normal={this.normal}
-                        large={this.large}
-                        huge={this.huge}
                         blue={this.blue}
                         yellow={this.yellow}
                         black={this.black}
@@ -263,11 +254,30 @@ class App extends Component {
                         addClick={this.addClick}
                         val_size={this.state.val_size}
                         handleStartClick={this.handleStartClick} />
+                        :
+                        <Redirect to='/login' />
                     } />
-                    <Route exact path='/gallery' render={() =>
+                    
+                    <Route exact path='/signup' render={(props) => 
+                        <SignupPage
+                            {...props}
+                            handleSignup={this.handleSignup}
+                        />
+                    }/>
+                    <Route exact path='/login' render={(props) => 
+                        <LoginPage
+                            {...props}
+                            handleLogin={this.handleLogin}
+                        />
+                    }/>
+                    <Route exact path='/gallery' render={() => (
+                        userService.getUser() ? 
                         <GalleryPage />
-                    } />
+                        :
+                        <Redirect to='/login' />
+                    )}/>
                 </Switch>
+                </Router>
             </div>
         )
     }

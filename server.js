@@ -1,43 +1,40 @@
 var express = require('express');
-var app = express();
-var port = process.env.PORT || 8080;
-const mongoose = require('mongoose');
-var passport = require('passport');
-var flash = require('connect-flash');
-
-var logger = require('morgan');
-
 var path = require('path');
 var favicon = require('serve-favicon');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var session = require('express-session');
 
 require('dotenv').config();
+require('./config/database');
+
+var app = express();
 
 app.use(logger('dev'));
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 
-//Configure both serve-favicon & static middleware
+// Configure both serve-favicon & static middlewares
 // to serve from the production 'build' folder
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Put API routes here, before the catch-all route
-// app.use('/api', require('./routes/api'));
+app.use(bodyParser.json());
 
-// Catch all routes
-app.get('/*', function(req,res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// Mount our custom auth middleware
+app.use(require('./config/auth'));
+
+// Put API routes here, before the "catch all" route
+app.use('/api/users', require('./routes/api/users'));
+// app.use('/api/gallery', require('./routes/api/gallery'));
+
+// The following "catch all" route is necessary for
+// a SPA'sclient-side routing to properly work
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// routes
-require('./routes/routes.js')(app, passport);
-
-// Configure to use port 3001 not 3000
+// Configure to use port 3001 instead of 3000 during
+// development to avoid collision with React's dev server
+var port = process.env.PORT || 3001;
 
 app.listen(port, function() {
-    console.log(`Express app running on ${port}`)
+  console.log(`Express app running on port ${port}`)
 });

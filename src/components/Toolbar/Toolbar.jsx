@@ -24,10 +24,6 @@ const Toolbar = (props) => {
                 <SizePicker
                     val_size={props.val_size}
                     handleSizeSlider={props.handleSizeSlider} 
-                    small={props.small}
-                    normal={props.normal}
-                    large={props.large}
-                    huge={props.huge}
                 />
             </div>
                     <div className="row">

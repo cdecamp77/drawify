@@ -1,6 +1,6 @@
 import React from 'react';
 import WebCam from '../../components/WebCam/WebCam';
-import ClearDrawingButton from '../../components/ClearDrawingButton/ClearDrawingButton';
+// import ClearDrawingButton from '../../components/ClearDrawingButton/ClearDrawingButton';
 import Toolbar from '../../components/Toolbar/Toolbar.jsx';
 import Drawing from '../../components/Drawing/Drawing';
 // import ColorPicker from '../../components/ColorPicker/ColorPicker';
@@ -18,14 +18,10 @@ const PhotoBooth = (props) => {
                     redraw={props.redraw}
                     addClick={props.addClick}
                 />
-                <ClearDrawingButton clearCanvas={props.clearCanvas}/>
+                {/* <ClearDrawingButton clearCanvas={props.clearCanvas}/> */}
                
                 <Toolbar
                     handleSizeSlider={props.handleSizeSlider}
-                    small={props.small}
-                    normal={props.normal}
-                    large={props.large}
-                    huge={props.huge}
                     blue={props.blue}
                     yellow={props.yellow}
                     black={props.black}
