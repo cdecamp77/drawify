@@ -9,27 +9,6 @@
     text-decoration: none;
 }
 
-.colors {
-    height: 12px;
-    border-radius: 50%
-}
-
-#purple {
-    background-color: purple;
-}
-#black {
-    background-color: black;
-}
-#red {
-    background-color: red;
-}
-#green {
-    background-color: green;
-}
-#blue {
-    background-color: blue;
-}
-
 canvas {
     margin: 0 auto;
     background-image: url('http://placekitten.com/g/500/300');
@@ -37,11 +16,11 @@ canvas {
     box-shadow: 5px 5px 15px cornflowerblue;    
 }
 
-.btn {
+/* .btn {
     padding: 5px;
     margin: 2px;
     box-shadow: 3px 3px 4px #FF5C69;
-}
+} */
 
 #video {
     margin: 50px;
@@ -49,24 +28,4 @@ canvas {
     background-color: black;
     display: flex;
     align-items: stretch;
-}
-
-#choosePurple {
-    background-color: #cb3594;
-}
-
-#chooseGreen {
-    background-color: #659b41;
-}
-
-#chooseYellow {
-    background-color: #ffcf33;
-}
-
-#chooseBrown {
-    background-color: #986928;
-}
-
-#clearCanvas {
-    color: #000;
 }

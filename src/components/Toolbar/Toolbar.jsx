@@ -1,5 +1,6 @@
 import React from 'react';
-import ColorPicker from '../ColorPicker/ColorPicker'
+import ColorPicker from '../ColorPicker/ColorPicker';
+import SizePicker from '../SizePicker/SizePicker';
 
 
 const Toolbar = (props) => {
@@ -7,9 +8,9 @@ const Toolbar = (props) => {
     return (
         <div className="container">
             <div className="row">
-                 <ColorPicker
+                <ColorPicker
                     blue={props.blue}
-                    purple={props.purple}
+                    yellow={props.yellow}
                     black={props.black}
                     red={props.red}
                     green={props.green}
@@ -19,14 +20,16 @@ const Toolbar = (props) => {
                     handleChangeComplete={props.handleChangeComplete}
                 />
             </div>
-                    <div className="row">
-                        <div id="sizeButtons s12">
-                            <a className="btn waves-effect waves-light s3" id="small">SMALL</a>
-                            <a className="btn waves-effect waves-light s3" id="normal">NORMAL</a>
-                            <a className="btn waves-effect waves-light s3" id="large">LARGE</a>
-                            <a className="btn waves-effect waves-light s3" id="huge">HUGE</a>
-                        </div>
-                    </div>
+            <div className="row">
+                <SizePicker
+                    val_size={props.val_size}
+                    handleSizeSlider={props.handleSizeSlider} 
+                    small={props.small}
+                    normal={props.normal}
+                    large={props.large}
+                    huge={props.huge}
+                />
+            </div>
                     <div className="row">
                         <div id="toolButtons s12">
                             <a className="btn waves-effect waves-light s6" id="marker"><i className="small material-icons">brush</i>Brush</a>

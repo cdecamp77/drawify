@@ -20,6 +20,7 @@ class App extends Component {
     constructor (props) {
         super(props);
         this.state = {
+            val_size: '',
             curColor: 'pink',
             background: '#fff',
             constraints: {
@@ -38,37 +39,80 @@ class App extends Component {
         }
     }
 
-    // handleChangeComplete = (color) => {
-    //     var colorChoice = document.getElementById('colorPicker').addEventListener('click', );
+    handleSizeSlider = (e) => {
+       let obj = {};
+       const value = e.target.value;
+       obj[e.target.name] = value;
+       this.setState(obj);
 
-    //     clickColor.unshift(color);
-    //     this.setState({curColor: color.hex });
-    //     console.log(clickColor);
-    // };
+       if (value === "1") {
+            curSize = 'small';
+            console.log(value);
+        } else if (value === "2") {
+            curSize = 'normal';
+            console.log(value);
+        } else if (value === "3") {
+            curSize = 'large';
+            console.log(value);
+        } else if (value === "4") {
+            curSize = 'huge';
+            console.log(value);
+        }
+   }
+   
+//    showActions(){
+//       return(
+//         <div className="action -bar"> 
+//             <input type="range" min="0" max="4" name='val_size' value={this.state.val_size} onChange={(e) => {this.handleChange(e)}}/>  
+//         </div>
+//       )
+//    }
+
+
+    // const slider = document.getElementById("myRange");
+    // const output = document.querySelector("span.value");
+    // output.innerHTML = slider.value;
+
+    // slider.oninput = function() {
+    //     output.innerHTML = this.value;
+    //     
+    // }
+    
+
+    small = () => {
+        curSize = 'small';
+    }    
+    
+    normal = () => {
+        curSize = 'normal';
+    }    
+    
+    large = () => {
+        curSize = 'large';
+    }    
+    
+    huge = () => {
+        curSize = 'huge';
+    }    
 
     blue = () => {
         curColor = 'blue';
-        console.log(curColor);
     }
     
-    purple = () => {
-        curColor = 'purple';
-        console.log(curColor);
+    yellow = () => {
+        curColor = 'yellow';
     }
     
     black = () => {
         curColor = 'black';
-        console.log(curColor);
     }
     
     green = () => {
         curColor = 'green';
-        console.log(curColor);
     }
     
     red = () => {
         curColor = 'red';
-        console.log(curColor);
     }
     
     componentDidMount() {
@@ -118,27 +162,27 @@ class App extends Component {
         context.lineJoin = 'round';
 
         for (var i=0; i < clickX.length; i++) {
-        if (clickSize[i] === 'small') {
-            radius = 2;
-        } else if (clickSize[i] === 'normal') {
-            radius = 5;
-        } else if (clickSize[i] === 'large') {
-            radius = 10;
-        } else if (clickSize[i] === 'huge') {
-            radius = 20;
-        }
+            if (clickSize[i] === 'small') {
+                radius = 2;
+            } else if (clickSize[i] === 'normal') {
+                radius = 5;
+            } else if (clickSize[i] === 'large') {
+                radius = 10;
+            } else if (clickSize[i] === 'huge') {
+                radius = 20;
+            }
 
-        context.beginPath();
-        if (clickDrag[i] && i) {
-            context.moveTo(clickX[i-1], clickY[i-1]);
-        } else {
-            context.moveTo(clickX[i]-1, clickY[i]);
-        }
-        context.lineTo(clickX[i], clickY[i]);
-        context.strokeStyle = clickColor[i];
-        context.lineWidth = radius;
-        context.stroke();
-        context.closePath();
+            context.beginPath();
+            if (clickDrag[i] && i) {
+                context.moveTo(clickX[i-1], clickY[i-1]);
+            } else {
+                context.moveTo(clickX[i]-1, clickY[i]);
+            }
+            context.lineTo(clickX[i], clickY[i]);
+            context.strokeStyle = clickColor[i];
+            context.lineWidth = radius;
+            context.stroke();
+            context.closePath();
         }
     }
 
@@ -201,21 +245,23 @@ class App extends Component {
                     } />
                     <Route exact path='/photobooth' render={() =>
                         <PhotoBooth
+                        handleSizeSlider={this.handleSizeSlider}
+                        small={this.small}
+                        normal={this.normal}
+                        large={this.large}
+                        huge={this.huge}
                         blue={this.blue}
-                        purple={this.purple}
+                        yellow={this.yellow}
                         black={this.black}
                         red={this.red}
                         green={this.green}
                         selectColor={this.selectColor}
-                        eraser={this.eraser}
-                        clearCanvas={this.clearCanvas}
                         handleMouseUp={this.handleMouseUp}
                         handleMouseMove={this.handleMouseMove}
                         handleMouseDown={this.handleMouseDown}
                         redraw={this.redraw}
                         addClick={this.addClick}
-                        color={this.state.curColor}
-                        handleChangeComplete={this.handleChangeComplete}
+                        val_size={this.state.val_size}
                         handleStartClick={this.handleStartClick} />
                     } />
                     <Route exact path='/gallery' render={() =>

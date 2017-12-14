@@ -20,9 +20,14 @@ const PhotoBooth = (props) => {
                 />
                 <ClearDrawingButton clearCanvas={props.clearCanvas}/>
                
-                <Toolbar 
+                <Toolbar
+                    handleSizeSlider={props.handleSizeSlider}
+                    small={props.small}
+                    normal={props.normal}
+                    large={props.large}
+                    huge={props.huge}
                     blue={props.blue}
-                    purple={props.purple}
+                    yellow={props.yellow}
                     black={props.black}
                     red={props.red}
                     green={props.green}
@@ -31,6 +36,7 @@ const PhotoBooth = (props) => {
                     handleMouseDown={props.handleMouseDown}
                     redraw={props.redraw}
                     addClick={props.addClick}
+                    val_size={props.val_size}
                 />
             </div>
         </div>
