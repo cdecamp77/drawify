@@ -23,7 +23,6 @@ const PhotoBooth = (props) => {
                 </div>
                 <div className="row">
                     <div className="col s6">
-                         {/* <div className="row">  */}
                         <Drawing
                             handleMouseUp={props.handleMouseUp}
                             handleMouseMove={props.handleMouseMove}
@@ -31,7 +30,6 @@ const PhotoBooth = (props) => {
                             redraw={props.redraw}
                             addClick={props.addClick}
                         />
-                        {/* </div> */}
                     </div>
                     <div className="col s3 offset-s2">
                         <div className="row">

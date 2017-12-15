@@ -37,14 +37,7 @@ class App extends Component {
         this.takePicture = this.takePicture.bind(this);
     }
 
-    getInitialState = () => {
-        return {
-            curColor: '#333',
-            curTool: 'marker',
-            curSize: 'normal'
-        }
-    }
-
+    // Line size range slider
     handleSizeSlider = (e) => {
        let obj = {};
        const value = e.target.value;
@@ -62,6 +55,8 @@ class App extends Component {
         }
    }
 
+
+   // Color Choices
     blue = () => {
         curColor = 'blue';
     }
@@ -86,10 +81,13 @@ class App extends Component {
         curColor = 'white';
     }
     
+    // sets up the webcam
     componentDidMount() {
+        // user info
         let user = userService.getUser();
         this.setState({user});
 
+        // setting up video
         const constraints = this.state.constraints;
         const getUserMedia = (params) => (
             new Promise((successCallback, errorCallback) => {
@@ -97,6 +95,7 @@ class App extends Component {
             })
         );
 
+        // gain access to webcam
         getUserMedia(constraints)
             .then((stream) => {
                 const video = document.querySelector('video');
@@ -109,11 +108,13 @@ class App extends Component {
             });
     }
 
+    // handles the start of the webcam
     handleStartClick (event) {
         event.preventDefault();
         this.takePicture();
     }
 
+    // snaps a picture and adds it to a canvas
     takePicture() {
         let canvas = document.querySelector('canvas');
         let context = canvas.getContext('2d');
@@ -128,20 +129,24 @@ class App extends Component {
         photo.setAttribute('src', data);
     }
 
+    // adds the ability to draw lines
     redraw = () => {
         const canvas = document.querySelector('canvas');
         const context = canvas.getContext('2d');
 
-        context.lineJoin = 'round';
 
         for (var i=0; i < clickX.length; i++) {
             if (clickSize[i] === 'small') {
+                context.lineJoin = 'round';
                 radius = 2;
             } else if (clickSize[i] === 'normal') {
+                context.lineJoin = 'round';
                 radius = 5;
             } else if (clickSize[i] === 'large') {
+                context.lineJoin = 'round';
                 radius = 10;
             } else if (clickSize[i] === 'huge') {
+                context.lineJoin = 'round';
                 radius = 20;
             }
 
@@ -153,23 +158,14 @@ class App extends Component {
             }
             context.lineTo(clickX[i], clickY[i]);
             context.strokeStyle = clickColor[i];
+            context.lineJoin = 'round';
             context.lineWidth = radius;
             context.stroke();
             context.closePath();
         }
     }
-
-    eraser = () => {
-        curTool = 'eraser';
-        if (curTool === 'eraser') {
-            curColor = 'white';
-            curTool = 'marker';
-        } else {
-            clickColor.push(curColor);
-        }
-        console.log('eraser');
-    }
     
+    // gets the position of the mouse when clicked on the canvas
     addClick = (x, y, dragging) => {
         clickX.push(x);
         clickY.push(y);
@@ -182,10 +178,7 @@ class App extends Component {
         clickSize.push(curSize);
     }
 
-    clearCanvas = () => {
-        
-    }
-
+    // handles the mouseDown functionality
     handleMouseDown = (e) => {
         let canvas = document.getElementById('photo')
         let mouseX = e.pageX - canvas.offsetLeft;
@@ -195,6 +188,7 @@ class App extends Component {
         this.redraw();
     }
 
+    // handles the mouse moving when drawing a line
     handleMouseMove = (e) => {
         let canvas = document.getElementById('photo');
         if (paint) {
@@ -204,20 +198,24 @@ class App extends Component {
         }
     }
 
+    // ends the dran line
     handleMouseUp = (e) => {
         paint = false;
         this.redraw();
     }
 
+    // logout function
     handleLogout = () => {
         userService.logout();
         this.setState({user: null});
     }
 
+    // sign up function
     handleSignup = () => {
         this.setState({user: userService.getUser()});
     }
 
+    // login function
     handleLogin = () => {
         this.setState({user: userService.getUser()});
     }

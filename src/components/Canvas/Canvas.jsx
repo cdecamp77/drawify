@@ -5,7 +5,7 @@ const Canvas = (props) => {
 
     return (
         <div className="row">
-            <canvas className="s12" id="top-layer" width="500" height="300"></canvas>
+            <canvas className="s12" id="top-layer" width="700" height="500"></canvas>
         </div>
     );
 }

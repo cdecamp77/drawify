@@ -3,10 +3,17 @@ import React from 'react';
 const Drawing = (props) => {
     return (
         <div>
-            <canvas onMouseUp={props.handleMouseUp}  onMouseDown={props.handleMouseDown} onMouseMove={props.handleMouseMove}width="500"     id="photo" height="300" className="output"> 
+            <canvas 
+                id="photo" 
+                className="output"
+                onMouseUp={props.handleMouseUp}  
+                onMouseDown={props.handleMouseDown} 
+                onMouseMove={props.handleMouseMove}
+                width="700"     
+                height="500"
+            >
             </canvas>
         </div>
-        
     );
 }
 

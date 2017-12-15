@@ -1,8 +1,9 @@
 .booth-capture-button {
     margin: 0 auto;
+    margin-top: 15px;
     width: 500px;
     display: block;
-    padding: 10px 20px;
+    padding: 20px;
     background-color: cornflowerblue;
     color: #fff;
     text-align: center;

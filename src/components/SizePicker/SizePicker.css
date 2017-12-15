@@ -34,11 +34,6 @@
 .slider::-moz-range-thumb {
     width: 25px;
     height: 25px;
-    background: #4CAF50;
+    background: cornflowerblue;
     cursor: pointer;
-}
-
-#tickmarks {
-    color: black;
-    background-color: black;
 }

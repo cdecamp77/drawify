@@ -6,7 +6,7 @@ const WebCam = (props) => {
     
     return (
         <div>
-            <video  className="" id="video" width="500" height="300"></video>
+            <video  className="" id="video" width="700" height="500"></video>
             <SnapPhotoButton handleStartClick={props.handleStartClick} />
         </div>
     );

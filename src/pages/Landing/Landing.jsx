@@ -1,21 +1,36 @@
 import React from 'react';
 import NavBar from '../../components/NavBar/NavBar';
+import {Slider, Slide} from 'react-materialize'
+
 
 const Landing = (props) => {
     return (
         <div>
-        <NavBar user={props.user} handleLogout={props.handleLogout} />
-        <div className="container">
-            <div className="jumbotron text-center">
-                <h1><span className="fa fa-lock">Welcome to Drawify</span></h1>
-            </div>
-            <div className="s6">
-                <div className="well">
-                    <h3 className="text-primary"><span className="fa fa-facebook"></span>Facebook</h3>
+            <NavBar user={props.user} handleLogout={props.handleLogout} />
+            <div className="container">
+                <Slider className="row">
+                    <Slide
+                        src="https://i.imgur.com/ion7CMf.jpg"
+                        title="Welcome to Drawify">
+                        Let's get to it!
+                    </Slide>
+                    <Slide
+                        src="https://i.imgur.com/3TH5Sab.jpg"
+                        title="Before we start."
+                        placement="left">
+                        Make sure to click "Allow" when prompted.
+                    </Slide>
+                    <Slide
+                        src="https://i.imgur.com/8ltpnct.jpg"
+                        title="Remember, have fun!"
+                        placement="right">
+                        Let the creativity begin!
+                    </Slide>
+                </Slider>
+                <div id="begin-button" className="row center">
+                    <a href="/photobooth" className="btn waves-light" waves="light">Let's Begin!</a>
                 </div>
             </div>
-            <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="false"></div>
-        </div>
         </div>
     );
 };

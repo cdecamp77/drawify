@@ -1,11 +1,11 @@
 import React from 'react';
-// import {Link} from 'react-router-dom';
 import './NavBar.css';
 
 const NavBar = (props) => {
   let verify = props.user ?
     <nav>
-      <a href="/" className="brand-logo">Drawify</a>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="/" className="brand-logo left">Drawify</a>
       <ul className="right">
         <li><a href="/photobooth" className='NavBar-Link'>PhotoBooth</a></li>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
