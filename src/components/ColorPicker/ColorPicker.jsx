@@ -3,7 +3,7 @@ import './ColorPicker.css'
 
 const ColorPicker = (props) => {
     return (
-            <div>
+            <div className="col s3">
                 <p>Color Selector</p>
                 <div className="colorPicker">
                     <button className="colors" onClick={props.white} id="white"></button> 

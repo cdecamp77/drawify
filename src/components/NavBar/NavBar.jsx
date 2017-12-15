@@ -9,8 +9,7 @@ const NavBar = (props) => {
       <ul className="right">
         <li><a href="/photobooth" className='NavBar-Link'>PhotoBooth</a></li>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <li><a href="" className='NavBar-link' onClick={props.handleLogout} >Log Out</a></li>
+        <li><a href="/" className='NavBar-link' onClick={props.handleLogout} >Log Out</a></li>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <li><span className='NavBar-welcome brand-logo center'>Welcome, {props.user.name}</span></li>
       </ul>

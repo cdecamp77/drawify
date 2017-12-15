@@ -32,3 +32,4 @@ The process:
 * Being able to save the drawing directly on the site.
 * Add more drawing tools for the user to use.
 * Be able to post directly to FaceBook.
+* Not available on mobile.
