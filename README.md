@@ -10,7 +10,9 @@ You can give her a test drive here
 ## What can we expect?
 
 ![Landing Page](https://i.imgur.com/eotsaQx.png)
+***
 ![PhotoBooth](https://i.imgur.com/sEMuJyt.png)
+***
 ![Drawing](https://i.imgur.com/ksBFHZG.png)
 
 ## Technologies Used

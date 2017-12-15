@@ -12,7 +12,7 @@ const Landing = (props) => {
                     <Slide
                         src="https://i.imgur.com/ion7CMf.jpg"
                         title="Welcome to Drawify">
-                        Let's get to it!
+                        Let's get to it, login to continue!
                     </Slide>
                     <Slide
                         src="https://i.imgur.com/3TH5Sab.jpg"

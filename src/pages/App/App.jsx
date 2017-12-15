@@ -132,7 +132,6 @@ class App extends Component {
         const canvas = document.querySelector('canvas');
         const context = canvas.getContext('2d');
 
-
         for (var i=0; i < clickX.length; i++) {
             if (clickSize[i] === 'small') {
                 context.lineJoin = 'round';
