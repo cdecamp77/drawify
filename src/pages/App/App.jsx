@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import userService from '../../utils/userService';
-import GalleryPage from '../GalleryPage/GalleryPage';
 import Landing from '../Landing/Landing';
 import PhotoBooth from '../PhotoBooth/PhotoBooth';
 import SignupPage from '../SignupPage/SignupPage';
@@ -54,7 +53,6 @@ class App extends Component {
             curSize = 'huge';
         }
    }
-
 
    // Color Choices
     blue = () => {
@@ -267,15 +265,6 @@ class App extends Component {
                             handleLogin={this.handleLogin}
                         />
                     }/>
-                    <Route exact path='/gallery' render={() => (
-                        userService.getUser() ? 
-                        <GalleryPage 
-                            user={this.state.user}
-                            handleLogout={this.handleLogout}
-                        />
-                        :
-                        <Redirect to='/login' />
-                    )}/>
                 </Switch>
                 </Router>
             </div>
